@@ -1,4 +1,5 @@
 ﻿using OrientacaoObjto.Classe;
+using OrientacaoObjto.GUI;
 using System;
 
 namespace CrudSeriesDio
@@ -9,6 +10,7 @@ namespace CrudSeriesDio
         {
             Game game = new Game();
 
+            Console.WriteLine(Gui.Title("Welcome!!"));
             game.Run();
         }
     }

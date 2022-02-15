@@ -1,4 +1,5 @@
-﻿using OrientacaoObjto.State;
+﻿using OrientacaoObjto.GUI;
+using OrientacaoObjto.State;
 using System;
 using System.Collections.Generic;
 
@@ -6,14 +7,15 @@ namespace OrientacaoObjto.Classe
 {
     class Game
     {
-        private bool end 
+        private bool end;
+
+        public bool End 
         {
             get { return this.end; }
             set { this.end = value; }
         }
 
         private Stack<State> states;
-
 
         private void InitVariables()
         {
@@ -35,15 +37,15 @@ namespace OrientacaoObjto.Classe
 
         public void Run()
         {
-            while (this.end == false)
+            while (this.states.Count > 0)
             {
-                Console.WriteLine("Write a number: ");
-                int number = Convert.ToInt32(Console.ReadLine());
+                if (this.states.Count > 0)
+                {
+                    this.states.Peek().Update();
 
-                if (number < 0)
-                    this.end = true;
-                else
-                    Console.WriteLine($"You inputted: {number}");
+                    if(this.states.Peek().RequestEnd())
+                        this.states.Pop();
+                }
             }
             Console.WriteLine("ending game");
         }
