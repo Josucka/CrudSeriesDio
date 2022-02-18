@@ -24,5 +24,19 @@ namespace OrientacaoObjto.GUI
 
             return str;
         }
+        
+        public static String Announcement(String str)
+        {
+            str = String.Format(" - ({0}) :", str);
+
+            return str;
+        }
+
+        public static String GetInput(String str)
+        {
+            str = String.Format(" - {0}: ", str);
+
+            return str;
+        }
     }
 }

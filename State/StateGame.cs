@@ -1,17 +1,29 @@
 ﻿using OrientacaoObjto.GUI;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Collections;
 
 namespace OrientacaoObjto.State
 {
     class StateGame : State
     {
-        public StateGame(Stack<State> states) : base(states)
-        {
+        ArrayList characterList;
 
+        public StateGame(Stack<State> states, ArrayList character_list) : base(states)
+        {
+            this.characterList = character_list;
+        }
+
+        public void ProcessInput(int input)
+        {
+            switch (input)
+            {
+                case -1:
+                    this.end = true;
+                    break;
+                default:
+                    break;
+            }
         }
 
         public override void Update()
@@ -20,11 +32,11 @@ namespace OrientacaoObjto.State
             Console.WriteLine(Gui.MenuOption(0, "Create Character"));
             Console.WriteLine(Gui.MenuOption(-1, "Create Character"));
 
+            Gui.GetInput("Input");
             Console.WriteLine("Write a number (Game): ");
-            int number = Convert.ToInt32(Console.ReadLine());
+            int input = Convert.ToInt32(Console.ReadLine());
 
-            if (number < 0)
-                this.end = true;
+            this.ProcessInput(input);
         }
     }
 }

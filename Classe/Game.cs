@@ -1,7 +1,7 @@
-﻿using OrientacaoObjto.GUI;
-using OrientacaoObjto.State;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.Collections;
+using OrientacaoObjto.State;
 
 namespace OrientacaoObjto.Classe
 {
@@ -16,17 +16,23 @@ namespace OrientacaoObjto.Classe
         }
 
         private Stack<State> states;
+        private ArrayList characterList;
 
         private void InitVariables()
         {
             this.end = false;
         }
 
+        private void InitCharacterList()
+        {
+            this.characterList = new ArrayList();
+        }
+
         private void InitStates()
         {
             this.states = new Stack<State>();
 
-            this.states.Push(new StateMainMenu(this.states));
+            this.states.Push(new StateMainMenu(this.states, this.characterList));
         }
 
         public Game()
