@@ -4,39 +4,62 @@ namespace OrientacaoObjto.GUI
 {
     class Gui
     {
-        public static String Title(String str)
+        public static void Title(String str)
         {
+            Console.ForegroundColor = ConsoleColor.Cyan;
             str = String.Format("==== {0} ====", str);
 
-            return str;
+            Console.Write(str);
+            Console.ResetColor();
         }
 
-        public static String MenuTitle(int index, String str)
+        public static void MenuTitle(int index, String str)
         {
             str = String.Format(" - ({0}) - :", index, str);
 
-            return str;
+            Console.Write(str);
         }
 
-        public static String MenuOption(int index, String str)
+        public static void MenuOption(int index, String str)
         {
-            str = String.Format(" - ({0}) {1} - :", index, str);
+            str = String.Format(" - ({0}) : {1}\n", index, str);
 
-            return str;
+            Console.Write(str);
         }
         
-        public static String Announcement(String str)
+        public static void Announcement(String str)
         {
-            str = String.Format(" - ({0}) :", str);
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            str = String.Format("\t(~) {0} :\n", str);
 
-            return str;
+            Console.Write(str);
+            Console.ResetColor();
         }
 
-        public static String GetInput(String str)
+        public static void GetInput(String str)
         {
             str = String.Format(" - {0}: ", str);
 
-            return str;
+            Console.Write(str);
+        }
+
+        public static int GetInputInt(string message)
+        {
+            Nullable<int> input = null;
+
+            while(input == null)
+            {
+                try
+                {
+                    Gui.GetInput(message);
+                    input = Convert.ToInt32(Console.ReadLine());
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                }
+            }
+            return input.Value;
         }
     }
 }

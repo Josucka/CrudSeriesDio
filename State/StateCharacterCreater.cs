@@ -17,6 +17,20 @@ namespace OrientacaoObjto.State
             this.characterList = character_list;
         }
 
+        private void CreateCharacter()
+        {
+            String name = "";
+            String description = "";
+            Gui.GetInput("Input character name: ");
+            name = Console.ReadLine();
+            Gui.GetInput("Input description character: ");
+            description = Console.ReadLine();
+            this.characterList.Add(new Character(name, description));
+
+            Gui.Announcement("Character created");
+
+        }
+
         public void ProcessInput(int input)
         {
             switch (input)
@@ -25,10 +39,7 @@ namespace OrientacaoObjto.State
                     this.end = true;
                     break;
                 case 1:
-                    this.characterList.Add(new Character("MeadTurma"));
-                    this.characterList.Add(new Character("Bob"));
-                    this.characterList.Add(new Character("Svan"));
-                    Console.Write(Gui.Announcement("Character created"));
+                    this.CreateCharacter();
                     break;
                 default:
                     break;
@@ -37,14 +48,13 @@ namespace OrientacaoObjto.State
 
         override public void Update()
         {
-            Console.WriteLine(Gui.MenuTitle(0, "Character Create"));
-            Console.WriteLine(Gui.MenuOption(0, "new Character"));
-            Console.WriteLine(Gui.MenuOption(1, "Edit Character"));
-            Console.WriteLine(Gui.MenuOption(2, "Delete Character"));
-            Console.WriteLine(Gui.MenuOption(-1, "Exit"));
+            Gui.MenuTitle(0, "Character Create");
+            Gui.MenuOption(1, "new Character");
+            Gui.MenuOption(2, "Edit Character");
+            Gui.MenuOption(3, "Delete Character");
+            Gui.MenuOption(-1, "Exit");
 
             Gui.GetInput("Input");
-            Console.WriteLine("Write a number (Game): ");
             int input = Convert.ToInt32(Console.ReadLine());
 
             this.ProcessInput(input);

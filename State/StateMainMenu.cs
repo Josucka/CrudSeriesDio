@@ -9,10 +9,12 @@ namespace OrientacaoObjto.State
     class StateMainMenu : State
     {
         protected ArrayList characterList;
+        protected Character activeCharacter;
 
         public StateMainMenu(Stack<State> states, ArrayList character_list) : base(states)
         {
             this.characterList = character_list;
+            this.activeCharacter = null;
         }
 
         public void ProcessInput(int input)
@@ -23,12 +25,13 @@ namespace OrientacaoObjto.State
                     this.end = true;
                     break;
                 case 1:
+                    this.StartNewGame();
                     break;
                 case 2:
                     this.states.Push(new StateCharacterCreater(this.states, this.characterList));
                     break;
                 case 3:
-                    Console.WriteLine(this.characterList.Count);
+                    this.SelectCharacter();
                     break;
                 default:
                     break;
@@ -36,17 +39,51 @@ namespace OrientacaoObjto.State
         }
         override public void Update()
         {
-            Console.WriteLine(Gui.MenuTitle(0, "Main Menu"));
-            Console.WriteLine(Gui.MenuOption(1, "New Game"));
-            Console.WriteLine(Gui.MenuOption(2, "Character creator"));
-            Console.WriteLine(Gui.MenuOption(3, "List Character"));
-            Console.WriteLine(Gui.MenuOption(-1, "Exit"));
+            Gui.MenuTitle(0, "Main Menu");
+            Gui.MenuOption(1, "New Game");
+            Gui.MenuOption(2, "Character creator");
+            Gui.MenuOption(3, "Select Character");
+            Gui.MenuOption(-1, "Exit");
 
-            Console.WriteLine("Write a number (Main Menu): ");
-            int input = Convert.ToInt32(Console.ReadLine());
+            int input = Gui.GetInputInt("input");
 
             this.ProcessInput(input);
         }
 
+        public void StartNewGame()
+        {
+            //while the activeCharacter variable is null, one cannot start the game
+            if(this.activeCharacter == null)
+            {
+                Gui.Announcement("There is no Active Character selected! Please select one before starting the game.");
+            }
+            else // Start gaeme
+            {
+
+            }
+        }
+
+        public void SelectCharacter()
+        {
+            //print al character to select
+            for(int i = 0; i < this.characterList.Count; i++)
+            {
+                Console.WriteLine(i +": " + characterList[i].ToString());
+            }
+
+            int choice = Gui.GetInputInt("Characetr selection");
+
+
+            try
+            {
+                this.activeCharacter = this.characterList[choice];
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            if(this.activeCharacter != null)
+                Gui.Announcement($"The characeter {this.activeCharacter.ToString()} is selected.");
+        }
     }
 }
