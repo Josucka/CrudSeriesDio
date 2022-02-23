@@ -39,6 +39,11 @@ namespace OrientacaoObjto.State
         }
         override public void Update()
         {
+            if(this.activeCharacter != null)
+            {
+                Console.WriteLine($"{this.activeCharacter.ToStringBanner()} + \n");
+            }
+            
             Gui.MenuTitle(0, "Main Menu");
             Gui.MenuOption(1, "New Game");
             Gui.MenuOption(2, "Character creator");
@@ -59,7 +64,7 @@ namespace OrientacaoObjto.State
             }
             else // Start gaeme
             {
-
+                this.states.Push(new StateGame(this.states, this.activeCharacter));
             }
         }
 
@@ -76,12 +81,13 @@ namespace OrientacaoObjto.State
 
             try
             {
-                this.activeCharacter = this.characterList[choice];
+                this.activeCharacter = (Character)this.characterList[choice];
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
             }
+
             if(this.activeCharacter != null)
                 Gui.Announcement($"The characeter {this.activeCharacter.ToString()} is selected.");
         }

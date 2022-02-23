@@ -7,11 +7,11 @@ namespace OrientacaoObjto.State
 {
     class StateGame : State
     {
-        ArrayList characterList;
+        protected Character character;
 
-        public StateGame(Stack<State> states, ArrayList character_list) : base(states)
+        public StateGame(Stack<State> states, Character activeCharacter) : base(states)
         {
-            this.characterList = character_list;
+            this.character = activeCharacter;
         }
 
         public void ProcessInput(int input)
@@ -21,6 +21,10 @@ namespace OrientacaoObjto.State
                 case -1:
                     this.end = true;
                     break;
+                case 1:
+                    this.character.ToString(); //Console.WriteLine();   / Debug
+                    break;
+
                 default:
                     break;
             }
@@ -29,11 +33,10 @@ namespace OrientacaoObjto.State
         public override void Update()
         {
             Gui.MenuTitle(0, "Game State");
-            Gui.MenuOption(1, "Create Character");
+            Gui.MenuOption(1, "Character Stats");
             Gui.MenuOption(-1, "Exit");
 
-            Gui.GetInput("Input");
-            int input = Convert.ToInt32(Console.ReadLine());
+            int input = Gui.GetInputInt("Input");
 
             this.ProcessInput(input);
         }

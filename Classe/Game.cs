@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Collections;
 using OrientacaoObjto.State;
 
-namespace OrientacaoObjto.Classe
+namespace OrientacaoObjto
 {
     class Game
     {

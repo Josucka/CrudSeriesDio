@@ -36,6 +36,27 @@ namespace OrientacaoObjto.GUI
             Console.ResetColor();
         }
 
+        public static String ProgressBar(int min, int max, int width)
+        {
+            String bar = "";
+
+            double percent = (double)min / max;
+            int complete = Convert.ToInt32(percent * width);
+            int incomplete = width - complete;
+
+            for(int i = 0; i < complete; i++)
+            {
+                bar += "+";
+            }
+            for(int i = complete; i < incomplete; i++)
+            {
+                bar += "-";
+            }
+
+            bar += "]";
+            
+            return bar;
+        }
         public static void GetInput(String str)
         {
             str = String.Format(" - {0}: ", str);
